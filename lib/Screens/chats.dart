@@ -34,7 +34,7 @@ class _ChatsState extends State<Chats> {
                       leading: CircleAvatar(
                         backgroundColor: Colors.blueGrey,
                         backgroundImage: AssetImage(
-                            chatData[i].avatar ?? "Screens/heart_image.png"),
+                            chatData[i].avatar ?? "lib/Images/heart_image.png"),
                       ),
                       title: Text(
                         chatData[i].name,
@@ -81,60 +81,60 @@ List<chatsModel> chatData = [
       name: "Hamza",
       message: "How are you?",
       time: "10:20 pm",
-      avatar: "Screens/hamza.png"),
+      avatar: "lib/Images/hamza.png"),
   chatsModel(
       name: "Hassan",
       message: "I am fine?",
       time: "10:22 pm",
-      avatar: "Screens/hamza.png"),
+      avatar: "lib/Images/hamza.png"),
   chatsModel(
       name: "Maryam",
       message: "oye kia kar raha ho?",
       time: "12:15 pm",
-      avatar: "Screens/hamza.png"),
+      avatar: "lib/Images/hamza.png"),
   chatsModel(
       name: "Hamza",
       message: "How are you?",
       time: "10:20 pm",
-      avatar: "Screens/hamza.png"),
+      avatar: "lib/Images/hamza.png"),
   chatsModel(
       name: "Hassan",
       message: "I am fine?",
       time: "10:22 pm",
-      avatar: "Screens/heart_image.png"),
+      avatar: "lib/Images/heart_image.png"),
   chatsModel(
       name: "Maryam",
       message: "oye kia kar raha ho?",
       time: "12:15 pm",
-      avatar: "Screens/hamza.png"),
+      avatar: "lib/Images/hamza.png"),
   chatsModel(
       name: "Hamza",
       message: "How are you?",
       time: "10:20 pm",
-      avatar: "Screens/hamza.png"),
+      avatar: "lib/Images/hamza.png"),
   chatsModel(
       name: "Hassan",
       message: "I am fine?",
       time: "10:22 pm",
-      avatar: "Screens/hamza.png"),
+      avatar: "lib/Images/hamza.png"),
   chatsModel(
       name: "Maryam",
       message: "oye kia kar raha ho?",
       time: "12:15 pm",
-      avatar: "Screens/hamza.png"),
+      avatar: "lib/Images/hamza.png"),
   chatsModel(
       name: "Hamza",
       message: "How are you?",
       time: "10:20 pm",
-      avatar: "Screens/hamza.png"),
+      avatar: "lib/Images/hamza.png"),
   chatsModel(
       name: "Hassan",
       message: "I am fine?",
       time: "10:22 pm",
-      avatar: "Screens/hamza.png"),
+      avatar: "lib/Images/hamza.png"),
   chatsModel(
       name: "Maryam",
       message: "oye kia kar raha ho?",
       time: "12:15 pm",
-      avatar: "Screens/hamza.png"),
+      avatar: "lib/Images/hamza.png"),
 ];

@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import '../firebase_options.dart';
-import 'Screen_2.dart';
+import 'firebase_options.dart';
+import 'Screens/Screen_2.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +30,7 @@ class _MainAppState extends State<MainApp> {
         body: Column(
           children: [
             Image.asset(
-              "welcome_to_whatsapp.PNG",
+              "lib/Images/welcome_to_whatsapp.PNG",
               height: 300,
             ),
             languageList(),

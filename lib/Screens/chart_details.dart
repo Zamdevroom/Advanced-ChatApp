@@ -32,7 +32,7 @@ class _chart_detailsState extends State<chart_details> {
             children: [
               CircleAvatar(
                 radius: 17,
-                backgroundImage: AssetImage("Screens/hamza.png"),
+                backgroundImage: AssetImage("lib/Images/hamza.png"),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 6.0),

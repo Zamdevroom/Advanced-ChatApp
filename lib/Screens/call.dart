@@ -34,7 +34,7 @@ class _CallsState extends State<Calls> {
                       leading: CircleAvatar(
                         backgroundColor: Colors.blueGrey,
                         backgroundImage: AssetImage(
-                            callData[i].avatar ?? "Screens/heart_image.png"),
+                            callData[i].avatar ?? "lib/Images/heart_image.png"),
                       ),
                       title: Text(
                         callData[i].name,
@@ -95,61 +95,61 @@ List<callModel> callData = [
   callModel(
       name: "Hamza",
       time: "10:20 pm",
-      avatar: "Screens/hamza.png",
+      avatar: "lib/Images/hamza.png",
       calltype: callModel.callDailled),
   callModel(
       name: "Hassan",
       time: "10:22 pm",
-      avatar: "Screens/hamza.png",
+      avatar: "lib/Images/hamza.png",
       calltype: callModel.callReceived),
   callModel(
       name: "Maryam",
       time: "12:15 pm",
-      avatar: "Screens/hamza.png",
+      avatar: "lib/Images/hamza.png",
       calltype: callModel.callDailled),
   callModel(
       name: "Hamza",
       time: "10:20 pm",
-      avatar: "Screens/hamza.png",
+      avatar: "lib/Images/hamza.png",
       calltype: callModel.callReceived),
   callModel(
       name: "Hassan",
       time: "10:22 pm",
-      avatar: "Screens/heart_image.png",
+      avatar: "lib/Images/heart_image.png",
       calltype: callModel.callDailled),
   callModel(
       name: "Maryam",
       time: "12:15 pm",
-      avatar: "Screens/hamza.png",
+      avatar: "lib/Images/hamza.png",
       calltype: callModel.callReceived),
   callModel(
       name: "Hamza",
       time: "10:20 pm",
-      avatar: "Screens/hamza.png",
+      avatar: "lib/Images/hamza.png",
       calltype: callModel.callDailled),
   callModel(
       name: "Hassan",
       time: "10:22 pm",
-      avatar: "Screens/hamza.png",
+      avatar: "lib/Images/hamza.png",
       calltype: callModel.callReceived),
   callModel(
       name: "Maryam",
       time: "12:15 pm",
-      avatar: "Screens/hamza.png",
+      avatar: "lib/Images/hamza.png",
       calltype: callModel.callDailled),
   callModel(
       name: "Hamza",
       time: "10:20 pm",
-      avatar: "Screens/hamza.png",
+      avatar: "lib/Images/hamza.png",
       calltype: callModel.callReceived),
   callModel(
       name: "Hassan",
       time: "10:22 pm",
-      avatar: "Screens/hamza.png",
+      avatar: "lib/Images//hamza.png",
       calltype: callModel.callDailled),
   callModel(
       name: "Maryam",
       time: "12:15 pm",
-      avatar: "Screens/hamza.png",
+      avatar: "lib/Images/hamza.png",
       calltype: callModel.callReceived),
 ];

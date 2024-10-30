@@ -21,7 +21,7 @@ class _Screen2State extends State<Screen2> {
                 padding: const EdgeInsets.only(top: 50, bottom: 10),
                 child: Column(
                   children: [
-                    Image.asset("wecome_image_2.PNG"),
+                    Image.asset("lib/Images/wecome_image_2.PNG"),
                     Text(
                       "Read our Privacy Policy. Tap '\"Agree and\ncontinue \"' to accept the Terms of Service.",
                       style: TextStyle(fontSize: 16, color: Colors.grey[500]),

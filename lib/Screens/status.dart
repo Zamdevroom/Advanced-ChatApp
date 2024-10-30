@@ -26,7 +26,7 @@ class _StatusState extends State<Status> {
             ListTile(
               leading: CircleAvatar(
                 backgroundColor: Colors.blueGrey,
-                backgroundImage: AssetImage("Screens/heart_image.png"),
+                backgroundImage: AssetImage("lib/Images/heart_image.png"),
               ),
               title: Text(
                 "My Status",
@@ -99,61 +99,61 @@ List<statusModel> statusData = [
   statusModel(
     name: "Hamza",
     time: "10:20 pm",
-    avatar: "Screens/hamza.png",
+    avatar: "lib/Images/hamza.png",
   ),
   statusModel(
     name: "Hassan",
     time: "10:22 pm",
-    avatar: "Screens/hamza.png",
+    avatar: "lib/Images/hamza.png",
   ),
   statusModel(
     name: "Maryam",
     time: "12:15 pm",
-    avatar: "Screens/hamza.png",
+    avatar: "lib/Images/hamza.png",
   ),
   statusModel(
     name: "Hamza",
     time: "10:20 pm",
-    avatar: "Screens/hamza.png",
+    avatar: "lib/Images/hamza.png",
   ),
   statusModel(
     name: "Hassan",
     time: "10:22 pm",
-    avatar: "Screens/heart_image.png",
+    avatar: "lib/Images/heart_image.png",
   ),
   statusModel(
     name: "Maryam",
     time: "12:15 pm",
-    avatar: "Screens/hamza.png",
+    avatar: "lib/Images/hamza.png",
   ),
   statusModel(
     name: "Hamza",
     time: "10:20 pm",
-    avatar: "Screens/hamza.png",
+    avatar: "lib/Images/hamza.png",
   ),
   statusModel(
     name: "Hassan",
     time: "10:22 pm",
-    avatar: "Screens/hamza.png",
+    avatar: "lib/Images/hamza.png",
   ),
   statusModel(
     name: "Maryam",
     time: "12:15 pm",
-    avatar: "Screens/hamza.png",
+    avatar: "lib/Images/hamza.png",
   ),
   statusModel(
     name: "Hamza",
     time: "10:20 pm",
-    avatar: "Screens/hamza.png",
+    avatar: "lib/Images/hamza.png",
   ),
   statusModel(
     name: "Hassan",
     time: "10:22 pm",
-    avatar: "Screens/hamza.png",
+    avatar: "lib/Images/hamza.png",
   ),
   statusModel(
     name: "Maryam",
     time: "12:15 pm",
-    avatar: "Screens/hamza.png",
+    avatar: "lib/Images/hamza.png",
   ),
 ];

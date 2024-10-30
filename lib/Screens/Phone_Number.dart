@@ -13,12 +13,10 @@ class _PhoneNumberState extends State<PhoneNumber> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: Scaffold(
+        child:  Scaffold(
               appBar: AppBar(
                 title: Text(
-                  "Enter your Phone Number",
+                  "Enter your Phone Number 123",
                   style: TextStyle(
                       color: Colors.green[700], fontWeight: FontWeight.bold),
                 ),
@@ -39,8 +37,8 @@ class _PhoneNumberState extends State<PhoneNumber> {
                 elevation: 0.0,
               ),
               backgroundColor: Colors.grey[100],
-              body: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+              body:
+              Column(crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     "WhatsApp will need to verify your Phone number",
@@ -61,7 +59,8 @@ class _PhoneNumberState extends State<PhoneNumber> {
                     TextField(showCursor: true,)
                   ],)
                 ],
-              )),
-        ));
+              )
+        ),
+        );
   }
 }

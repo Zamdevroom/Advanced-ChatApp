@@ -87,11 +87,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-#    - hamza.png
-    - Screens/heart_image.png
-    - welcome_to_whatsapp.PNG
-    - wecome_image_2.PNG
-    - Screens/hamza.png
+    - lib/Images/
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
