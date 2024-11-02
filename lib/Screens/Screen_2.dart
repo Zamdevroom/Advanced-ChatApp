@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wa_business/Screens/Signup.dart';
 import 'Phone_Number.dart';
 import 'Drop_Down_Helper.dart';
 
@@ -37,7 +38,7 @@ class _Screen2State extends State<Screen2> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => PhoneNumber()));
+                                    builder: (context) => SignupScreen(Email: '', name: '', password: '', Phonenumber: 0)));
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(
