@@ -3,16 +3,24 @@ import 'package:flutter/material.dart';
 
 
 
-class LoginScreen extends StatelessWidget{
+class LoginScreen extends StatefulWidget{
   String email;
   String password;
 LoginScreen({super.key,required this.email,required this.password});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>(); 
 
-
 TextEditingController emailcontroller=TextEditingController();
+
 TextEditingController passwordcontroller=TextEditingController();
- var _obsecure= true;
+
+ var _obsecure=true;
+
   Future<void> signIn() async {
     try
  {
@@ -29,7 +37,7 @@ TextEditingController passwordcontroller=TextEditingController();
       }
     }
   }
-  
+
   @override
 
   Widget build(BuildContext context) {
@@ -64,9 +72,14 @@ TextEditingController passwordcontroller=TextEditingController();
                child: TextFormField(
                     controller: passwordcontroller,
                     decoration: InputDecoration(border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,),borderRadius: BorderRadius.circular(20)),labelText: 'Enter password',suffixIcon:IconButton(onPressed: (){
+                         
+                            setState(() {
+                              _obsecure = !_obsecure;
+                            });
+                          
                       
                     }, icon: _obsecure? Icon(Icons.visibility): Icon(Icons.visibility_off)) ),
-                    obscureText: true,
+                    obscureText: _obsecure,
                     obscuringCharacter: '*',
                   ),
              ),
@@ -81,7 +94,7 @@ TextEditingController passwordcontroller=TextEditingController();
       
     );
   }
-  }
+}
   
 
 
