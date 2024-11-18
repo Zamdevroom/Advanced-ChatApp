@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:wa_business/Screens/Login_screen.dart';
+import 'package:wa_business/Screens/add_contacts.dart';
 
 class contacts extends StatefulWidget {
   const contacts({super.key});
@@ -77,7 +78,12 @@ class _contactsState extends State<contacts> {
                         .cast(),
                   );
         }
-      })
+      }),
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>AddContacts()));
+      },
+      child: Icon(Icons.add) ,
+      )
     );
   }
 }

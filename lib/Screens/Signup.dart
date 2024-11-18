@@ -140,6 +140,11 @@ class _SignupScreenState extends State<SignupScreen> {
                   child: ElevatedButton(onPressed: (){
                     
                     createUserWithEmailAndPassword(namecontroller.text, emailcontroller.text, passwordcontroller.text, phonecontroller.text);
+                    namecontroller.clear();
+                    emailcontroller.clear();
+                    passwordcontroller.clear();
+                    phonecontroller.clear();
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Signup successful")));
                     // Navigator.push(context, MaterialPageRoute(builder: (context)=>  ));
                   }, child: Text("SignUp"),
                   ),

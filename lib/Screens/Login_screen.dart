@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:wa_business/Screens/contacts.dart';
 
 
 
@@ -27,12 +28,19 @@ TextEditingController passwordcontroller=TextEditingController();
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailcontroller.text,
         password: 
- passwordcontroller.text
+ passwordcontroller.text,
       );
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>contacts()));
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('login Successful')));
+
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No User exists')));
+
         print('No user found for that email.');
       } else if (e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Invalid password')));
         print('Wrong password provided.');
       }
     }
@@ -85,8 +93,9 @@ TextEditingController passwordcontroller=TextEditingController();
              ),
               ElevatedButton(onPressed: (){
                 signIn();
+                
                 // Navigator.push(context, MaterialPageRoute(builder: (context) => ));
-              }, child: Text('SignIn'))
+              }, child: Text('LogIn'))
               ],
             ),
           ),

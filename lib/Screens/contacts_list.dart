@@ -21,8 +21,8 @@ Future<void> fetchAndStoreContacts() async {
   // Store contacts in Firebase
   for (Contact contact in contacts) {
     firestore.collection('contacts').add({
-      'displayName': contact.displayName,
-      'phoneNumber': contact.phones!.isNotEmpty ? contact.phones!.first.value : null,
+      'name': contact.displayName,
+      'phone': contact.phones!.isNotEmpty ? contact.phones!.first.value : null,
     });
   }
 }
