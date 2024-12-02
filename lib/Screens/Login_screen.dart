@@ -30,7 +30,7 @@ TextEditingController passwordcontroller=TextEditingController();
         password: 
  passwordcontroller.text,
       );
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>contacts()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Contacts()));
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('login Successful')));
 
 
@@ -93,7 +93,18 @@ TextEditingController passwordcontroller=TextEditingController();
              ),
               ElevatedButton(onPressed: (){
                 signIn();
-                
+                emailcontroller.clear();
+                passwordcontroller.clear();
+                if(_formKey.currentState!.validate()){
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Login successful")));
+
+                    }
+                    else{
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Please fill all fields')),
+                    );
+
+                    }
                 // Navigator.push(context, MaterialPageRoute(builder: (context) => ));
               }, child: Text('LogIn'))
               ],

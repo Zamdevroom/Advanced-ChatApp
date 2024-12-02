@@ -144,7 +144,16 @@ class _SignupScreenState extends State<SignupScreen> {
                     emailcontroller.clear();
                     passwordcontroller.clear();
                     phonecontroller.clear();
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Signup successful")));
+                    if(_formKey.currentState!.validate()){
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Signup successful")));
+
+                    }
+                    else{
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Please fill all fields')),
+                    );
+
+                    }
                     // Navigator.push(context, MaterialPageRoute(builder: (context)=>  ));
                   }, child: Text("SignUp"),
                   ),
