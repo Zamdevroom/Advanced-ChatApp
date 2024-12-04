@@ -14,17 +14,17 @@ class Contacts extends StatefulWidget {
 }
 
 class _ContactsState extends State<Contacts> {
-  User? user= FirebaseAuth.instance.currentUser;
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
-      final double screen_height= MediaQuery.of(context).size.height;
-  final double screen_width= MediaQuery.of(context).size.width;
+    final double screen_height = MediaQuery.of(context).size.height;
+    final double screen_width = MediaQuery.of(context).size.width;
 
     return GetMaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Contacts'),
+          title: const Text('USER Contacts'),
         ),
         drawer: Drawer(
           child: ListView(
@@ -36,7 +36,9 @@ class _ContactsState extends State<Contacts> {
                   children: [
                     CircleAvatar(
                       child: Text(
-                        FirebaseAuth.instance.currentUser?.email?.substring(0, 1) ?? "?",
+                        FirebaseAuth.instance.currentUser?.email
+                                ?.substring(0, 1) ??
+                            "?",
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -55,7 +57,8 @@ class _ContactsState extends State<Contacts> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>  LoginScreen(email: '', password: ''),
+                      builder: (context) =>
+                          LoginScreen(email: '', password: ''),
                     ),
                   );
                 },
@@ -66,8 +69,13 @@ class _ContactsState extends State<Contacts> {
           ),
         ),
         body: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection("users").doc(user!.uid).collection("contacts").snapshots(),
-          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          stream: FirebaseFirestore.instance
+              .collection("users")
+              .doc(user!.uid)
+              .collection("contacts")
+              .snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
               print("Error: ${snapshot.error}");
               return const Center(
@@ -86,20 +94,19 @@ class _ContactsState extends State<Contacts> {
                 child: Text("No Contacts Found ..."),
               );
             }
-      
+
             final data = snapshot.data!.docs;
-      
+
             return ListView.builder(
               itemCount: data.length,
               itemBuilder: (context, index) {
-            
-      
                 return Padding(
-                  padding: EdgeInsets.all(screen_width*0.012),
+                  padding: EdgeInsets.all(screen_width * 0.012),
                   child: Container(
-                    decoration: BoxDecoration(border: Border.all(color: Colors.grey),borderRadius: BorderRadius.circular(50)),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(50)),
                     child: ListTile(
-                      
                       leading: CircleAvatar(
                         child: Text(data[index]["name"][0]),
                       ),
@@ -123,4 +130,5 @@ class _ContactsState extends State<Contacts> {
         ),
       ),
     );
-  }}
+  }
+}
