@@ -1,15 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:wa_business/Firebase.dart';
 import 'package:wa_business/Screens/chats.dart';
+import 'package:wa_business/chats.dart';
 
 class UsersScreen extends StatelessWidget {
-  final String currentUserId;
 
-  const UsersScreen({Key? key, required this.currentUserId}) : super(key: key);
+  const UsersScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+      final String currentUserId= FirebaseAuth.instance.currentUser!.uid;
+
+      final String _auth= FirebaseAuth.instance.currentUser!.uid;
+  User? user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
       appBar: AppBar(
@@ -17,7 +24,7 @@ class UsersScreen extends StatelessWidget {
         backgroundColor: Colors.green,
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: _firestore.collection('users').snapshots(),
+        stream: _firestore.collection('users').doc(user!.uid).collection("contacts").snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());

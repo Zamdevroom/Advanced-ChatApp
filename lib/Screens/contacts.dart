@@ -2,9 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:wa_business/Firebase.dart';
 import 'package:wa_business/Screens/Login_screen.dart';
 import 'package:wa_business/Screens/add_contacts.dart';
 import 'package:get/get.dart';
+import 'package:wa_business/Screens/chat_page.dart';
+import 'package:wa_business/Screens/chats.dart';
 
 class Contacts extends StatefulWidget {
   const Contacts({super.key});
@@ -15,14 +18,14 @@ class Contacts extends StatefulWidget {
 
 class _ContactsState extends State<Contacts> {
   User? user = FirebaseAuth.instance.currentUser;
-
+      final String _auth= FirebaseAuth.instance.currentUser!.uid;
   @override
   Widget build(BuildContext context) {
     final double screen_height = MediaQuery.of(context).size.height;
     final double screen_width = MediaQuery.of(context).size.width;
 
-    return GetMaterialApp(
-      home: Scaffold(
+    return 
+       Scaffold(
         appBar: AppBar(
           title: const Text('USER Contacts'),
         ),
@@ -102,16 +105,21 @@ class _ContactsState extends State<Contacts> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: EdgeInsets.all(screen_width * 0.012),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(50)),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        child: Text(data[index]["name"][0]),
+                  child: GestureDetector(
+                    onTap: (){
+                      Get.to(ChatPage(User_name: data[index]["name"],receiverid: _auth));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(50)),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          child: Text(data[index]["name"][0]),
+                        ),
+                        title: Text(data[index]["name"]),
+                        subtitle: Text(data[index]["phone"]),
                       ),
-                      title: Text(data[index]["name"]),
-                      subtitle: Text(data[index]["phone"]),
                     ),
                   ),
                 );
@@ -128,7 +136,7 @@ class _ContactsState extends State<Contacts> {
           },
           child: const Icon(Icons.add),
         ),
-      ),
-    );
+      );
+    
   }
 }
