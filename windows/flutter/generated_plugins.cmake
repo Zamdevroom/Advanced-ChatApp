@@ -7,8 +7,11 @@ list(APPEND FLUTTER_PLUGIN_LIST
   firebase_auth
   firebase_core
   firebase_storage
+<<<<<<< HEAD
   flutter_inappwebview_windows
   geolocator_windows
+=======
+>>>>>>> origin/master
   permission_handler_windows
 )
 

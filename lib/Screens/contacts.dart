@@ -9,9 +9,12 @@ import 'package:get/get.dart';
 import 'package:wa_business/Screens/chat_page.dart';
 import 'package:wa_business/Screens/chats.dart';
 
+<<<<<<< HEAD
 import '../Islam/check.dart';
 import '../Islam/navBar.dart';
 
+=======
+>>>>>>> origin/master
 class Contacts extends StatefulWidget {
   const Contacts({super.key});
 
@@ -55,6 +58,7 @@ class _ContactsState extends State<Contacts> {
                 ),
               ),
               ListTile(
+<<<<<<< HEAD
                 onTap: (){
                   Navigator.push(
                     context,
@@ -67,6 +71,8 @@ class _ContactsState extends State<Contacts> {
                 title: const Text('Islam'),
               ),
               ListTile(
+=======
+>>>>>>> origin/master
                 onTap: () async {
                   await FirebaseAuth.instance.signOut();
                   ScaffoldMessenger.of(context).showSnackBar(
