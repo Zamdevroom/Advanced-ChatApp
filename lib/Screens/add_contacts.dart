@@ -34,6 +34,8 @@ class _AddContacts extends State<AddContacts> {
                   ),
                   ElevatedButton(onPressed: (){
                     Firebase().AddContact(new_name.text, new_phone.text);
+                    new_name.clear();
+                    new_phone.clear();
                   }, child: Text('Create'))
           ],
         ),

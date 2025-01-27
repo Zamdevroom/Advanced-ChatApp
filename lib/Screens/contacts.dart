@@ -8,6 +8,7 @@ import 'package:wa_business/Screens/add_contacts.dart';
 import 'package:get/get.dart';
 import 'package:wa_business/Screens/chat_page.dart';
 import 'package:wa_business/Screens/chats.dart';
+import 'package:share_plus/share_plus.dart';
 
 class Contacts extends StatefulWidget {
   const Contacts({super.key});
@@ -19,6 +20,10 @@ class Contacts extends StatefulWidget {
 class _ContactsState extends State<Contacts> {
   User? user = FirebaseAuth.instance.currentUser;
       final String _auth= FirebaseAuth.instance.currentUser!.uid;
+      void InviteUser(){
+        Share.share('check out my website https://example.com');
+        
+      }
   @override
   Widget build(BuildContext context) {
     final double screen_height = MediaQuery.of(context).size.height;
@@ -26,8 +31,13 @@ class _ContactsState extends State<Contacts> {
 
     return 
        Scaffold(
+        backgroundColor: const Color.fromARGB(255, 176, 175, 175),
         appBar: AppBar(
-          title: const Text('USER Contacts'),
+          title: const Text(' Contacts'),
+          backgroundColor: Colors.green,
+          actions: [
+            Icon(Icons.group_add,)
+          ],
         ),
         drawer: Drawer(
           child: ListView(
@@ -40,7 +50,7 @@ class _ContactsState extends State<Contacts> {
                     CircleAvatar(
                       child: Text(
                         FirebaseAuth.instance.currentUser?.email
-                                ?.substring(0, 1) ??
+                                ?.substring(0, 1).toUpperCase() ??
                             "?",
                       ),
                     ),
@@ -101,30 +111,43 @@ class _ContactsState extends State<Contacts> {
             final data = snapshot.data!.docs;
 
             return ListView.builder(
-              itemCount: data.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.all(screen_width * 0.012),
-                  child: GestureDetector(
-                    onTap: (){
-                      Get.to(ChatPage(User_name: data[index]["name"],receiverid: _auth));
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(50)),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          child: Text(data[index]["name"][0]),
-                        ),
-                        title: Text(data[index]["name"]),
-                        subtitle: Text(data[index]["phone"]),
-                      ),
-                    ),
-                  ),
-                );
-              },
-            );
+  itemCount: data.length,
+  itemBuilder: (context, index) {
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        padding: EdgeInsets.all(screen_width * 0.012),
+        child: GestureDetector(
+          onTap: () {
+            try {
+              Get.to(ChatPage(
+                User_name: data[index]["name"],
+                receiverid: data[index]["uid"],
+              ));}
+            
+                 catch(e){      Get.snackbar('Error', 'User not found',duration: Duration(seconds: 2),backgroundColor: const Color.fromARGB(255, 108, 241, 124),snackPosition: SnackPosition.BOTTOM,mainButton: TextButton(onPressed: (){InviteUser();} , child: Text('Invite')));
+                 }
+            
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(50),
+            ),
+            child: ListTile(
+              leading: CircleAvatar(
+                child: Text(data[index]["name"][0]),
+              ),
+              title: Text(data[index]["name"]),
+              // subtitle: Text(data[index]["phoneNumber"]),
+            ),
+          ),
+        ),
+      ),
+    );
+  },
+);
+
           },
         ),
         floatingActionButton: FloatingActionButton(
@@ -134,7 +157,7 @@ class _ContactsState extends State<Contacts> {
               MaterialPageRoute(builder: (context) => const AddContacts()),
             );
           },
-          child: const Icon(Icons.add),
+          child: const Icon(Icons.person_add),
         ),
       );
     

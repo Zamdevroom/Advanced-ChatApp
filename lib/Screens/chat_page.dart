@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wa_business/Screens/messages.dart';
 
 class ChatPage extends StatefulWidget {
   final String User_name;
@@ -17,90 +16,131 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   final TextEditingController messageController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  late String senderId;
 
-  Future<void> SendMessage(String ReceiverID, String message) async {
-    final String CurrentUserID = _auth.currentUser!.uid;
-    final String currentUserEmail = _auth.currentUser!.email!;
+  @override
+  void initState() {
+    super.initState();
+    senderId = _auth.currentUser!.uid;
+  }
+
+  Future<void> sendMessage() async {
+    if (messageController.text.trim().isEmpty) return;
+
+    final String message = messageController.text.trim();
     final Timestamp timestamp = Timestamp.now();
 
-    Messages newMessage = Messages(
-      message: message,
-      receiverID: ReceiverID,
-      senderEmail: currentUserEmail,
-      senderID: CurrentUserID,
-      timestamp: timestamp,
-    );
-
-    List<String> ids = [CurrentUserID, ReceiverID];
+    List<String> ids = [senderId, widget.receiverid];
     ids.sort();
     String chatroomID = ids.join('_');
 
+    final messageData = {
+      'message': message,
+      'senderID': senderId,
+      'receiverID': widget.receiverid,
+      'timestamp': timestamp,
+    };
+
+    // Save the message to Firestore
     await FirebaseFirestore.instance
         .collection('Chat_Rooms')
         .doc(chatroomID)
-        .collection('messages') // Fixed collection name
-        .add(newMessage.toMap());
+        .collection('messages')
+        .add(messageData);
+
+    // Clear the input field
+    messageController.clear();
   }
 
-  Stream<QuerySnapshot> GetMessages(String userID, String otherUserID) {
-    List<String> ids = [userID, otherUserID];
+  Stream<QuerySnapshot> getMessages() {
+    List<String> ids = [senderId, widget.receiverid];
     ids.sort();
     String chatroomID = ids.join('_');
 
     return FirebaseFirestore.instance
         .collection('Chat_Rooms')
         .doc(chatroomID)
-        .collection("messages") // Fixed collection name
-        .orderBy("timestamp", descending: false) // Fixed field name
+        .collection('messages')
+        .orderBy('timestamp', descending: false)
         .snapshots();
-  }
-
-  void send_Message() async {
-    if (messageController.text.isNotEmpty) {
-      await SendMessage(widget.receiverid, messageController.text);
-      print('Messages Sent..');
-      messageController.clear();
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          Icon(Icons.call)
+        ],
         backgroundColor: Colors.green,
         title: Text(
           widget.User_name,
           overflow: TextOverflow.ellipsis,
+          maxLines: 1,
         ),
         centerTitle: true,
-        leading: SizedBox(
-          width: 70,
-          child: Row(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  Get.back();
-                },
-              ),
-              const SizedBox(width: 20),
-              CircleAvatar(
-                radius: 23,
-                child: Text(
-                  widget.User_name[0].toUpperCase(),
-                ),
-              ),
-            ],
-          ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Get.back();
+          },
         ),
       ),
       body: Column(
         children: [
-          Expanded(child: _buildMessages()), // Message List
+          Expanded(
+            child: StreamBuilder<QuerySnapshot>(
+              stream: getMessages(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text("Error loading messages: ${snapshot.error}"),
+                  );
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                final messages = snapshot.data!.docs;
+
+                if (messages.isEmpty) {
+                  return const Center(child: Text("No messages yet."));
+                }
+
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: messages.length,
+                  itemBuilder: (context, index) {
+                    final message = messages[index];
+                    final isSender = message['senderID'] == senderId;
+ 
+                    return Align(
+                      alignment:
+                          isSender ? Alignment.centerRight : Alignment.centerLeft,
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 10),
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color:
+                              isSender ? Colors.green[100] : Colors.grey[200],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(message['message']),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              decoration: BoxDecoration(color:  Color.fromARGB(255, 224, 222, 222)),
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 224, 222, 222),
+                borderRadius: BorderRadius.circular(10),
+              ),
               child: Row(
                 children: [
                   Expanded(
@@ -108,16 +148,17 @@ class _ChatPageState extends State<ChatPage> {
                       controller: messageController,
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(10)),
-                        hintText: 'Type...',
+                          borderSide: const BorderSide(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        hintText: 'Type a message...',
                         border: InputBorder.none,
                       ),
                     ),
                   ),
                   IconButton(
                     icon: const Icon(Icons.send),
-                    onPressed: send_Message,
+                    onPressed: sendMessage,
                   ),
                 ],
               ),
@@ -127,60 +168,4 @@ class _ChatPageState extends State<ChatPage> {
       ),
     );
   }
-
-Widget _buildMessages() {
-  String senderId = _auth.currentUser!.uid;
-  return StreamBuilder<QuerySnapshot>(
-    stream: GetMessages(senderId, widget.receiverid),
-    builder: (context, snapshot) {
-      if (snapshot.hasError) {
-        return Center(child: Text("Error loading messages: ${snapshot.error}"));
-      }
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return Center(child: CircularProgressIndicator());
-      }
-
-      // Check for empty messages
-      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-        return Center(child: Text("No messages yet. Start the conversation!"));
-      }
-
-      final messageWidgets = snapshot.data!.docs.map((doc) {
-        return _buildMessageItem(doc);
-      }).toList();
-
-      return ListView(
-        children: messageWidgets, // Display messages in fetched order
-      );
-    },
-  );
-}
-
-Widget _buildMessageItem(DocumentSnapshot doc) {
-  Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Align(
-      alignment: data["senderID"] == _auth.currentUser!.uid
-          ? Alignment.centerRight
-          : Alignment.centerLeft,
-      child: Container(
-        decoration: BoxDecoration(
-          color: data["senderID"] == _auth.currentUser!.uid
-              ? Colors.green
-              : Colors.grey,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        padding: const EdgeInsets.all(10),
-        child: Text(
-          data["message"], // Fixed field reference
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-    ),
-  );
-}
-
-
 }
