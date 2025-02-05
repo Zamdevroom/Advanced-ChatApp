@@ -8,17 +8,17 @@ class SalahTimingsFetch {
   static Coordinates? coordinates;  // Make coordinates nullable initially
   static List<String> prayerTimesList = [];
   static List<String> timeLabels = [
-    'Fajr Start Time:',
-    'Fajr End Time:',
-    'Sunrise Time:',
-    'Dhuhr Start Time:',
-    'Dhuhr End Time:',
-    'Asr Start Time:',
-    'Asr End Time:',
-    'Maghrib Start Time:',
-    'Maghrib End Time:',
-    'Isha Start Time:',
-    'Isha End Time:'
+    'Fajr Start Time',
+    'Fajr End Time',
+    'Sunrise Time',
+    'Dhuhr Start Time',
+    'Dhuhr End Time',
+    'Asr Start Time',
+    'Asr End Time',
+    'Maghrib Start Time',
+    'Maghrib End Time',
+    'Isha Start Time',
+    'Isha End Time'
   ];
 
   Future<void> fetchLoc() async {

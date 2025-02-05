@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:wa_business/Islam/screens/Translation/juzTranslation.dart';
 import '../../Utility/appColors.dart';
 import '../../Utility/juzListTile.dart';
 import 'juzDetail.dart';
 import 'juzNamesClass.dart';
 
 class JuzListScreen extends StatefulWidget {
-  const JuzListScreen({Key? key}) : super(key: key);
+  bool? isQuran;
+  JuzListScreen({Key? key, required this.isQuran}) : super(key: key);
 
   @override
   State<JuzListScreen> createState() => _JuzListScreenState();
@@ -109,12 +111,21 @@ class _JuzListScreenState extends State<JuzListScreen> {
                             arabic: arabicName,
                             verses: 'Verses: $totalAyat',
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                  builder: (context) => JuzDetailScreen(juzNumber: int.parse(juzNumber)),
-                                ),
-                              );
+                              if(widget.isQuran!){
+                                Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                    builder: (context) => JuzDetailScreen(juzNumber: int.parse(juzNumber)),
+                                  ),
+                                );
+                              }else{
+                                Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                    builder: (context) => Juztranslation(juzNumber: int.parse(juzNumber)),
+                                  ),
+                                );
+                              }
                             },
                           );
                         },

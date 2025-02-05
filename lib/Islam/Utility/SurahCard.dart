@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../ClassModals/QuranModal.dart';
+import '../screens/Translation/TranslationModal.dart';
 
 class SurahCard extends StatelessWidget {
-  final Surah selectedSurah; // Assuming Surah is a defined model class
+  final Surahs selectedSurah; // Assuming Surah is a defined model class
 
   const SurahCard({
     Key? key,
@@ -49,7 +50,7 @@ class SurahCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "${selectedSurah.englishNameTranslation ?? ''} (${selectedSurah.ayahs.length})",
+                          "${selectedSurah.englishNameTranslation ?? ''} (${selectedSurah.ayahs!.length})",
                           style: TextStyle(
                             fontSize: size.width / 36,
                             color: Colors.white,

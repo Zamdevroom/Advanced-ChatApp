@@ -3,22 +3,38 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:wa_business/Islam/Utility/appColors.dart';
 import 'package:wa_business/Islam/screens/Settings/settingController.dart';
+import 'package:wa_business/Islam/screens/Translation/translationController.dart';
 import '../../ClassModals/QuranModal.dart';
 import '../../Utility/SurahCard.dart';
 import '../../Utility/topPart.dart';
-import '../Translation/TranslationModal.dart';
+import 'TranslationModal.dart';
 
-class SurahView extends StatefulWidget {
+class TranslationSurahView extends StatefulWidget {
   final Surahs selectedSurah;
+  final Surahs translationSurah;
 
-  SurahView({super.key, required this.selectedSurah});
+  TranslationSurahView({super.key, required this.selectedSurah, required this.translationSurah});
 
   @override
-  State<SurahView> createState() => _SurahViewState();
+  State<TranslationSurahView> createState() => _TranslationSurahViewState();
 }
 
-class _SurahViewState extends State<SurahView> {
+class _TranslationSurahViewState extends State<TranslationSurahView> {
   final settingCont getxSetting = Get.put(settingCont());
+  final TranslationControl trCont = Get.put(TranslationControl());
+  // Surah? translationSurah;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // print(widget.translationSurah.name);
+    // Quran trQuran = trCont.translationQuran.value;
+    // int num = widget.selectedSurah.number;
+    // translationSurah = trQuran.data?.surahs?.firstWhere(
+    //       (surah) => surah.number == num,
+    //   orElse: () => null, // Return null if no matching Surah is found
+    // );
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -60,6 +76,7 @@ class _SurahViewState extends State<SurahView> {
                         itemBuilder: (context, index) {
                           String ayahText =
                               widget.selectedSurah.ayahs![index].text ?? "";
+                          String transText = widget.translationSurah.ayahs![index].text ?? "";
 
                           // Handle "Bismillah" removal for non-Surah Al-Fatihah
                           if (widget.selectedSurah.number != 1 &&
@@ -68,9 +85,11 @@ class _SurahViewState extends State<SurahView> {
                                   "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ")) {
                             ayahText = ayahText.replaceFirst(
                                 "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ", "").trim();
+                            transText = transText.replaceFirst(
+                                "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ", "").trim();
                           }
 
-                          return _buildAyahCard(ayahText, index, size);
+                          return _buildAyahCard(ayahText, transText, index, size);
                         },
                       )
                     else
@@ -86,7 +105,7 @@ class _SurahViewState extends State<SurahView> {
   }
 
   // Widget for displaying each ayah
-  Widget _buildAyahCard(String ayahText, int index, Size size) {
+  Widget _buildAyahCard(String ayahText, String transText, int index, Size size) {
     return Container(
       width: size.width,
       child: Card(
@@ -106,6 +125,20 @@ class _SurahViewState extends State<SurahView> {
                       fontFamily: 'Amiri',
                       // fontSize: size.width / 30,
                       fontSize: size.height/35 * getxSetting.sliderValue.value,
+                      height: 2.3, // Adjusted line height
+                      decorationColor: const Color(0xFF00A49B),
+                    ),
+                  ),
+              ),
+              Obx(()=>
+                  Text(
+                    '$transText',
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                      color: AppColors.primaryColor,
+                      fontFamily: 'Amiri',
+                      // fontSize: size.width / 30,
+                      fontSize: size.height/50 * getxSetting.sliderValue.value,
                       height: 2.3, // Adjusted line height
                       decorationColor: const Color(0xFF00A49B),
                     ),

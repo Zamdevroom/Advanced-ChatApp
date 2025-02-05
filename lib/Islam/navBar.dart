@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wa_business/Islam/Utility/appColors.dart';
+import 'package:wa_business/Islam/screens/Hadith/HadithHome.dart';
 
 import 'VideosScreen/channels.dart';
 import 'home.dart';
@@ -37,5 +38,5 @@ class NavBar extends StatelessWidget {
 class control extends GetxController{
   final RxInt selectedIndex = 1.obs;
 
-  final screens = [Container(color: Colors.red,),HomePage(),VideoHomePage()];
+  final screens = [HadithHomePage(),HomePage(),VideoHomePage()];
 }

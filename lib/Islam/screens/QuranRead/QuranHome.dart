@@ -10,13 +10,41 @@ import 'package:wa_business/Islam/screens/QuranRead/surahList.dart';
 import '../../ClassModals/QuranModal.dart';
 import '../../ClassModals/jsonParse.dart';
 import '../../Utility/surahListTile.dart';
+import '../Translation/BottomSheet.dart';
+import '../Translation/translationController.dart';
 import 'SurahDetail.dart';
 import 'SurahJuzController.dart';
 import 'juzListScreen.dart';
 
-class QuranHome extends StatelessWidget {
+class QuranHome extends StatefulWidget {
+  bool isQuran;
+  QuranHome({required this.isQuran});
+
+  @override
+  State<QuranHome> createState() => _QuranHomeState();
+}
+
+class _QuranHomeState extends State<QuranHome> {
   // Instantiate the controller
   final SurahJuzController controller = Get.put(SurahJuzController());
+  final TranslationControl quranController = Get.put(TranslationControl());
+
+  @override
+  void initState(){
+    super.initState();
+    // if(widget.isQuran){
+    //   print('asdkjhf');
+    //   quranController.getQuran();
+    // }else{
+    //   fetchTrans();
+    // }
+  }
+
+  Future<void> fetchTrans()async{
+    print('trans');
+    quranController.getQuran();
+    quranController.getTranslation();
+  }
 
   Future<List<Surah>> fetchSurahs() async {
     final data = await loadQuranData();
@@ -35,8 +63,15 @@ class QuranHome extends StatelessWidget {
         iconTheme: IconThemeData(
           color: Colors.black
         ),
-        title: Text("Quran", style: TextStyle(color: AppColors.primaryColor, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),),
+        title: Text(widget.isQuran?"Quran":"Translation", style: TextStyle(color: AppColors.primaryColor, fontFamily: 'Poppins', fontWeight: FontWeight.bold),),
         backgroundColor: Colors.white,
+        actions: [
+          widget.isQuran?SizedBox.shrink():
+          IconButton(onPressed: (){
+            print('fat');
+            LanguageBottomSheet.showLanguageSelectionBottomSheet(context);
+          }, icon: Icon(Icons.language))
+        ],
       ),
       body: Container(
         // decoration: const BoxDecoration(
@@ -74,6 +109,7 @@ class QuranHome extends StatelessWidget {
                             Expanded(
                               child: Obx(() => InkWell(
                                 onTap: () {
+                                  print('hello');
                                   controller.toggleView(true); // Set to Surah
                                 },
                                 child: Container(
@@ -92,6 +128,7 @@ class QuranHome extends StatelessWidget {
                                     child: Text(
                                       "Surah",
                                       style: TextStyle(
+                                        fontFamily: 'Poppins',
                                         color: controller.isSurahSelected.value
                                             ? Colors.green
                                             : Colors.black, // Change text color if Surah is selected
@@ -106,6 +143,7 @@ class QuranHome extends StatelessWidget {
                             Expanded(
                               child: Obx(() => InkWell(
                                 onTap: () {
+                                  print('hello');
                                   controller.toggleView(false); // Set to Juz
                                 },
                                 child: Container(
@@ -124,6 +162,7 @@ class QuranHome extends StatelessWidget {
                                     child: Text(
                                       "Juz",
                                       style: TextStyle(
+                                        fontFamily: 'Poppins',
                                         color: !controller.isSurahSelected.value
                                             ? Colors.green
                                             : Colors.black, // Change text color if Juz is selected
@@ -140,8 +179,8 @@ class QuranHome extends StatelessWidget {
                     ),
                     Expanded(
                       child: Obx(() => controller.isSurahSelected.value
-                          ? SurahListView()
-                          : JuzListScreen()),
+                          ? SurahListView(isQuran: widget.isQuran,)
+                          : JuzListScreen(isQuran: widget.isQuran,)),
                     ),
                   ],
                 ),

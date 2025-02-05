@@ -19,37 +19,38 @@ class StylishCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: size.width/50),
-      child: Card(
-        child: ListTile(
-          leading: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppColors.primaryColor,
-              // gradient: AppColors.linearGrad,
-            ),
-            child: CircleAvatar(
-              backgroundColor: Colors.transparent, // Make the CircleAvatar background transparent
-              child: Text(
-                '${index + 1}',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  // fontStyle: FontStyle.italic,
-                  color: Colors.white ,
-                ),
+    return Card(
+      color: Colors.white,
+      elevation: 4,
+      child: ListTile(
+        leading: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: AppColors.primaryColor.withOpacity(0.75),
+            // gradient: AppColors.linearGrad,
+          ),
+          child: CircleAvatar(
+            backgroundColor: Colors.transparent, // Make the CircleAvatar background transparent
+            child: Text(
+              '${index + 1}',
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.bold,
+
+                // fontStyle: FontStyle.italic,
+                color: Colors.black ,
               ),
             ),
           ),
-          title: Text(
-            text, // Use dynamic text here
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          subtitle: Text(
-            time,
-            style: TextStyle(),
-          ), // Display the time string dynamically
         ),
+        title: Text(
+          text, // Use dynamic text here
+          style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w900, fontSize: 14 ),
+        ),
+        subtitle: Text(
+          time,
+          style: TextStyle(fontFamily: 'Poppins'),
+        ), // Display the time string dynamically
       ),
     );
   }

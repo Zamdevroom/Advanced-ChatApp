@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 // Import your custom widgets and utility files
+import '../../Utility/appColors.dart';
 import '../../Utility/topPart.dart';
+import '../../home.dart';
 import 'SalahTimingFetch.dart';
 import 'TimingsUi.dart';
 
@@ -23,56 +25,27 @@ class _SalahviewState extends State<Salahview> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Salah Timings', style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w900, color: AppColors.primaryColor)),
+      ),
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/background.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
         child: Column(
           children: [
-            TopSection(
-              height: size.height / 3.5,
-              text: "${SalahTimingsFetch.cityName} Timings",
-              customWidget: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    flex: 5,
-                      child: Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: size.height/40, vertical: size.height/100),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Surah Taha (20:14)", style: TextStyle(fontSize: 14, color: Colors.white, fontFamily: 'Amiri', fontWeight: FontWeight.bold),),
-                              Text(style: TextStyle(fontSize: 10, color: Colors.white),"\"Indeed, I am Allah. There is no deity except Me, so worship Me and establish prayer for My remembrance.\""),
-                            ],
-                          ),
-                        ),
-                      ),
+            CustomCard(pic: 'frontLogo.png',
+                expand: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Surah Al-Baqarah, (2:2)', style: TextStyle(fontFamily: 'Amiri', fontWeight: FontWeight.bold, color: Colors.white),),
+                      Text("\"This is the Book about which there is no doubt, a guidance for those conscious of Allah.\"", style: TextStyle(fontSize: size.width/34, color: Colors.white, fontFamily: 'Poppins'),),
+                    ],
                   ),
-                  Expanded(
-                    flex: 4,
-                      child: Center(
-                        child: Image.asset('assets/images/salah1.png'),
-                      ),
-                  ),
-                ],
-              ),
-            ),
+                ), height: 5.5),
+            
             Expanded(
               child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(size.height / 30),
-                    topRight: Radius.circular(size.height / 30),
-                  ),
-                ),
                 child: Column(
                   children: [
                     SizedBox(height: size.height/150,),
