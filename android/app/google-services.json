@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1082846160023",
+    "project_id": "advanced-chatapp-edee7",
+    "storage_bucket": "advanced-chatapp-edee7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1082846160023:android:faab6e3914c717ed1cb5d2",
+        "android_client_info": {
+          "package_name": "com.example.wa_business"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPT2Mf8l0cA-vw2r1wHSVZASslEtI9iI0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

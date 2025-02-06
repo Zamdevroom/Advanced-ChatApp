@@ -1,0 +1,36 @@
+
+class JuzNames {
+  // Combined data for all Juz with Arabic diacritics
+  static const List<Map<String, dynamic>> juzList = [
+    {'juzNumber': 1, 'nameArabic': 'ٱلم', 'nameEnglish': 'Alif Lam Mim', 'totalAyat': 148},
+    {'juzNumber': 2, 'nameArabic': 'سَيَقُولُ ٱلسُّفَهَآءُ', 'nameEnglish': 'Sayuqalu As-Sufahaa', 'totalAyat': 111},
+    {'juzNumber': 3, 'nameArabic': 'تِلْكَ ٱلرُّسُلُ', 'nameEnglish': 'Tilka Ar-Rusul', 'totalAyat': 126},
+    {'juzNumber': 4, 'nameArabic': 'لَن تَنَالُوا۟ ٱلْبِرَّ', 'nameEnglish': 'Lan Tanaalu Al-Birr', 'totalAyat': 131},
+    {'juzNumber': 5, 'nameArabic': 'وَٱلْمُحْصَنَٰتُ', 'nameEnglish': 'Wal-Muhsanat', 'totalAyat': 124},
+    {'juzNumber': 6, 'nameArabic': 'لَا يُحِبُّ ٱللَّهُ', 'nameEnglish': 'La Yuhibbu Allah', 'totalAyat': 110},
+    {'juzNumber': 7, 'nameArabic': 'وَإِذَا سَمِعُوا۟', 'nameEnglish': 'Wa-Iza Samiuu', 'totalAyat': 149},
+    {'juzNumber': 8, 'nameArabic': 'وَلَوْ أَنَّنَآ', 'nameEnglish': 'Walaw Annana', 'totalAyat': 142},
+    {'juzNumber': 9, 'nameArabic': 'قَدْ أَفْلَحَ', 'nameEnglish': 'Qad Aflaha', 'totalAyat': 159},
+    {'juzNumber': 10, 'nameArabic': 'وَٱعْلَمُوٓا۟', 'nameEnglish': 'Wa\'lamuu', 'totalAyat': 127},
+    {'juzNumber': 11, 'nameArabic': 'يَعْتَذِرُونَ', 'nameEnglish': 'Ya\'tadhiruun', 'totalAyat': 151},
+    {'juzNumber': 12, 'nameArabic': 'وَمَا مِن دَآبَّةٍ', 'nameEnglish': 'Wa Ma Min Daabah', 'totalAyat': 170},
+    {'juzNumber': 13, 'nameArabic': 'وَمَآ أُبَرِّئُ', 'nameEnglish': 'Wa Ma Abri', 'totalAyat': 154},
+    {'juzNumber': 14, 'nameArabic': 'رُّبَمَا يَوَدُّ', 'nameEnglish': 'Rubbama Yuddu', 'totalAyat': 227},
+    {'juzNumber': 15, 'nameArabic': 'سُبْحَٰنَ ٱلَّذِىٓ أَسْرَىٰ', 'nameEnglish': 'Subhana Alladhi Asra', 'totalAyat': 185},
+    {'juzNumber': 16, 'nameArabic': 'قَالَ أَلَمْ', 'nameEnglish': 'Qala Alam', 'totalAyat': 269},
+    {'juzNumber': 17, 'nameArabic': 'ٱقْتَرَبَتِ ٱلسَّاعَةُ', 'nameEnglish': 'Iqtarabat As-Sa\'ah', 'totalAyat': 190},
+    {'juzNumber': 18, 'nameArabic': 'قَدْ أَفْلَحَ ٱلْمُؤْمِنُونَ', 'nameEnglish': 'Qad Aflaha Al-Mu\'minun', 'totalAyat': 202},
+    {'juzNumber': 19, 'nameArabic': 'وَقَالَ ٱلَّذِينَ', 'nameEnglish': 'Wa Qala Al-Ladhina', 'totalAyat': 339},
+    {'juzNumber': 20, 'nameArabic': 'ءَامَنْ خَلَقَ', 'nameEnglish': 'Aman Khalaq', 'totalAyat': 171},
+    {'juzNumber': 21, 'nameArabic': 'ٱتْلُ مَآ أُو۟حِىَ', 'nameEnglish': 'Atlu Ma Uhiy', 'totalAyat': 178},
+    {'juzNumber': 22, 'nameArabic': 'وَمَن يَقْنُتْ', 'nameEnglish': 'Wa Man Yaqnt', 'totalAyat': 169},
+    {'juzNumber': 23, 'nameArabic': 'وَمَآ أَنزَلْنَا', 'nameEnglish': 'Wa Ma Anzalna', 'totalAyat': 357},
+    {'juzNumber': 24, 'nameArabic': 'فَمَنْ أَظْلَمُ', 'nameEnglish': 'Faman Azlam', 'totalAyat': 175},
+    {'juzNumber': 25, 'nameArabic': 'إِلَيْهِ يُرَدُّ', 'nameEnglish': 'Ilayhi Yurd', 'totalAyat': 246},
+    {'juzNumber': 26, 'nameArabic': 'حٓمٓ', 'nameEnglish': 'Ha-Mim', 'totalAyat': 195},
+    {'juzNumber': 27, 'nameArabic': 'قَالَ فَمَا خَطْبُكُمْ', 'nameEnglish': 'Qalafama Khatbukum', 'totalAyat': 399},
+    {'juzNumber': 28, 'nameArabic': 'قَدْ سَمِعَ ٱللَّهُ', 'nameEnglish': 'Qad Sami\'Allah', 'totalAyat': 137},
+    {'juzNumber': 29, 'nameArabic': 'تَبَارَكَ ٱلَّذِى', 'nameEnglish': 'Tabarakalladhi', 'totalAyat': 431},
+    {'juzNumber': 30, 'nameArabic': 'عَمَّ يَتَسَآءَلُونَ', 'nameEnglish': 'Amma Yatasa\'alun', 'totalAyat': 564},
+  ];
+}
