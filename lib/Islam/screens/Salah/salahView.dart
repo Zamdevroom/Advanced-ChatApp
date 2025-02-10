@@ -33,17 +33,9 @@ class _SalahviewState extends State<Salahview> {
           children: [
             CustomCard(pic: 'frontLogo.png',
                 expand: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Surah Al-Baqarah, (2:2)', style: TextStyle(fontFamily: 'Amiri', fontWeight: FontWeight.bold, color: Colors.white),),
-                      Text("\"This is the Book about which there is no doubt, a guidance for those conscious of Allah.\"", style: TextStyle(fontSize: size.width/34, color: Colors.white, fontFamily: 'Poppins'),),
-                    ],
-                  ),
+                  padding: EdgeInsets.all(size.width/20),
+                  child: Text('${SalahTimingsFetch.cityName}\nNamaz\nTimings',style: TextStyle(fontFamily: 'Poppins', color: Colors.white, fontWeight: FontWeight.bold, fontSize: size.width/20),),
                 ), height: 5.5),
-            
             Expanded(
               child: Container(
                 child: Column(
@@ -51,7 +43,7 @@ class _SalahviewState extends State<Salahview> {
                     SizedBox(height: size.height/150,),
                     Expanded(
                       child: CustomScrollView(
-                        physics: const BouncingScrollPhysics(),
+                        physics: const ClampingScrollPhysics(),
                         slivers: [
                           SliverList(
                             delegate: SliverChildBuilderDelegate(

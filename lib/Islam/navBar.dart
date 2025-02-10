@@ -26,8 +26,7 @@ class NavBar extends StatelessWidget {
           destinations: [
             NavigationDestination(icon: Icon(Icons.menu_book,color: cont.selectedIndex.value == 0? AppColors.primaryColor:Colors.black), label: 'Hadith'),
             NavigationDestination(icon: Icon(Icons.home, color: cont.selectedIndex.value == 1? AppColors.primaryColor:Colors.black  ,), label: 'Home'),
-            NavigationDestination(icon: Icon(Icons.video_collection, color: cont.selectedIndex.value == 2? AppColors.primaryColor:Colors.black), label: 'Videos'),
-            NavigationDestination(icon: Icon(Icons.mosque, color: cont.selectedIndex.value == 2? AppColors.primaryColor:Colors.black), label: 'Videos'),
+            NavigationDestination(icon: Icon(Icons.video_collection, color: cont.selectedIndex.value == 2? AppColors.primaryColor:Colors.black), label: 'IlmTube'),
           ]
       ),),
       body: Obx(()=>cont.screens[cont.selectedIndex.value]),

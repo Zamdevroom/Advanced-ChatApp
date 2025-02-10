@@ -5,18 +5,23 @@ import 'package:flutter/cupertino.dart'; // For CupertinoPageRoute
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:prayers_times/prayers_times.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wa_business/Islam/screens/AsmaUlHusna/AsmUlHusnaScreen.dart';
 import 'package:wa_business/Islam/screens/AsmaUlHusna/nameText.dart';
+import 'package:wa_business/Islam/screens/Qibla/diblaDir.dart';
 import 'package:wa_business/Islam/screens/Salah/SalahTimingFetch.dart';
 import 'package:wa_business/Islam/screens/Salah/displayTime.dart';
 import 'package:wa_business/Islam/screens/Salah/salahView.dart';
+import 'package:wa_business/Islam/screens/Supplications/duaDetail.dart';
 import 'package:wa_business/Islam/screens/Supplications/supplicationView.dart';
 import 'package:wa_business/Islam/screens/Tasbeeh/tasbeeh.dart';
 import 'package:wa_business/Islam/screens/Tasbeeh/tasbeehMainScreen.dart';
 import 'package:wa_business/Islam/screens/Translation/TranslationModal.dart';
 import 'package:wa_business/Islam/screens/Translation/translationController.dart';
+import 'package:wa_business/Islam/screens/dailyAyat.dart';
+import 'package:wa_business/Islam/screens/date.dart';
 import 'Utility/HomeScreenButtons.dart';
 import 'Utility/appColors.dart'; // Custom utility file
 import 'Utility/ButtonOptions.dart'; // Custom button list and utility file
@@ -49,7 +54,7 @@ class _HomePageState extends State<HomePage> {
 
   late PrayerTimes prayerTimes;
   List<String> prayerList = [];
-  List<String> nowSalah = [];
+  RxList<String> nowSalah = <String>[].obs;
 
 
   final Map<String, Widget> buttonRoutes = {
@@ -59,8 +64,9 @@ class _HomePageState extends State<HomePage> {
     ButtonList.texts[3]: AsmaUlHusnaScreen(),
     ButtonList.texts[5]: SupplicationListView(),
     ButtonList.texts[6]: Tasbeehmainscreen(),
-    ButtonList.texts[7]: Tasbeehmainscreen(),
+    ButtonList.texts[7]: Qibladirection(),
   };
+
 
   List<String> arabicPhrases = [
     'سُبْحَانَ اللَّهِ',              // Subhan Allah
@@ -112,72 +118,6 @@ class _HomePageState extends State<HomePage> {
     await quranController.fetchRandomAyah();
   }
 
-  // Future<void> fetchRandomAyah() async {
-  //   Random random = Random();
-  //   print("Fetching Random Ayah.");
-  //
-  //   DateTime now = DateTime.now();
-  //   int currentDay = now.weekday;
-  //
-  //   // Get the stored values from SharedPreferences
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   int? storedDay = prefs.getInt('currentDay');
-  //   int? storedSurahNo = prefs.getInt('surahNo');
-  //   int? storedAyatNo = prefs.getInt('ayatNo');
-  //
-  //   // Check if the current day is the same as the stored day
-  //   if (storedDay != null && storedDay == currentDay) {
-  //     // If the day is the same, load the stored Surah and Ayah numbers
-  //     print("Same day as stored, using stored Surah and Ayah.");
-  //     surahNo = storedSurahNo;
-  //     ayatNumber = storedAyatNo;
-  //
-  //     // Fetch Quran data and use the stored values to set the Ayah
-  //     quranController.fetchAyat(surahNo!, ayatNumber!);
-  //     if (quranController.quran.value.data?.surahs?.isNotEmpty ?? false) {
-  //       surahOfDailAyah = quranController.quran.value.data!.surahs![storedSurahNo!];
-  //       List<Ayahs>? ayahs = surahOfDailAyah?.ayahs;
-  //
-  //       if (ayahs != null && ayahs.isNotEmpty) {
-  //         setState(() {
-  //           randomAyah = ayahs[storedAyatNo!].text.toString();
-  //           randomAyah = randomAyah.replaceFirst("بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ", '').trim();
-  //         });
-  //       }
-  //     }
-  //   } else {
-  //     // If the day is different, generate a new random Ayah
-  //     print("New day, generating new random Ayah.");
-  //     print(quranController.quran.value.data?.surahs?.isNotEmpty);
-  //
-  //     if (quranController.quran.value.data?.surahs?.isNotEmpty ?? false) {
-  //       int randomSurahIndex = random.nextInt(quranController.quran.value.data!.surahs!.length);
-  //       // int randomSurahIndex = 1;
-  //       surahNo = randomSurahIndex;
-  //       surahOfDailAyah = quranController.quran.value.data!.surahs![randomSurahIndex];
-  //       List<Ayahs>? ayahs = surahOfDailAyah?.ayahs;
-  //
-  //       if (ayahs != null && ayahs.isNotEmpty) {
-  //         int randomAyahIndex = random.nextInt(ayahs.length);
-  //         // int randomAyahIndex = 62;
-  //         ayatNumber = randomAyahIndex;
-  //         quranController.fetchAyat(surahNo!, ayatNumber!);
-  //         setState(() {
-  //           randomAyah = ayahs[randomAyahIndex].text.toString();
-  //           randomAyah = randomAyah.replaceFirst("بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ", '').trim();
-  //         });
-  //         print(randomAyah);
-  //         print('askldjfh');
-  //
-  //         // Store the new values in SharedPreferences
-  //         await prefs.setInt('currentDay', currentDay);
-  //         await prefs.setInt('surahNo', surahNo!);
-  //         await prefs.setInt('ayatNo', ayatNumber!);
-  //       }
-  //     }
-  //   }
-  //   print("Fetching Random Ayah complete.");
-  // }
 
 
   Future<void> setTasbeeh()async{
@@ -218,7 +158,8 @@ class _HomePageState extends State<HomePage> {
       );
 
       populatePrayerTimes();
-      nowSalah = DisplayTiming.setSalah();
+      nowSalah.value = DisplayTiming.setSalah();
+      print(nowSalah.value);
     } else {
       print('Location data is missing!');
     }
@@ -233,6 +174,7 @@ class _HomePageState extends State<HomePage> {
         );
         Placemark place = placemarks[0];
         SalahTimingsFetch.cityName = place.locality ?? 'Unknown';
+        print(SalahTimingsFetch.cityName);
       }
     } catch (e) {
       print('Error occurred while getting location: $e');
@@ -304,7 +246,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('ZamStudios', style: TextStyle(color: AppColors.primaryColor, fontWeight: FontWeight.bold, fontSize: size.height/40),),
+        title: Text('ZamStudios', style: TextStyle(fontFamily: 'Poppins', color: AppColors.primaryColor, fontWeight: FontWeight.bold, fontSize: size.height/40),),
         backgroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
@@ -319,92 +261,135 @@ class _HomePageState extends State<HomePage> {
                 ),
                 child: CustomCard(pic: 'frontLogo.png',
                     expand: Padding(
-                      padding: EdgeInsets.all(size.width/40),
+                      padding: EdgeInsets.all(size.width/100),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center, // Align text to the left
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Now:',
-                                    style: TextStyle(
-                                      fontSize: size.height/50,
-                                      color: Colors.white,
-                                      // fontSize: 18,
-                                      fontWeight: FontWeight.bold,
+                          Expanded(
+                            flex: 3,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center, // Align text to the left
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white.withAlpha(25),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(size.width/200),
+                                      child: Obx((){
+                                        return nowSalah.value.isEmpty?
+                                        Center(
+                                          child: SizedBox(
+                                            width: size.width/18, // Adjust size
+                                            height: size.width/18, // Adjust size
+                                            child: CircularProgressIndicator(
+                                              strokeWidth: 1,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ):
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'Now',
+                                              style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontSize: size.height/50,
+                                                color: Colors.white,
+                                                // fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              '${nowSalah[0]}',
+                                              // '',
+                                              style: TextStyle(
+                                                color: Colors.greenAccent,
+                                                fontFamily: 'Poppins',
+                                                fontSize: size.height/56,
+                                                // fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      })
                                     ),
                                   ),
-                                  Text(
-                                    'Maghrib',
-                                    style: TextStyle(
-                                      color: Colors.greenAccent,
-                                      fontSize: size.height/56,
-                                      // fontSize: 18,
-                                      fontWeight: FontWeight.w500,
+                                ),
+                                SizedBox(width: size.width/80,),
+                                Expanded(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white.withAlpha(25),
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
+                                    child: Obx((){
+                                      return nowSalah.value.isEmpty?
+                                      Center(
+                                        child: SizedBox(
+                                          width: size.width/18, // Adjust size
+                                          height: size.width/18, // Adjust size
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 1,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      )
+                                          :
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Next',
+                                            style: TextStyle(
+                                              fontSize: size.height/50,
+                                              color: Colors.white,
+                                              fontFamily: 'Poppins',
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            '${nowSalah[1]}',
+                                            // '',
+                                            style: TextStyle(
+                                              color: Colors.white60,
+                                              fontFamily: 'Poppins',
+                                              fontSize: size.height/56,
+                                              // fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    }),
                                   ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Next:',
-                                    style: TextStyle(
-                                      fontSize: size.height/50,
-                                      color: Colors.white,
-                                      // fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Fajr',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: size.height/56,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                ),
+                              ],
+                            ),
                           ),
-                          SizedBox(height: size.height/40,),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Hijri:',
-                                style: TextStyle(
-                                  fontSize: size.height/50,
-                                  color: Colors.white,
-                                  // fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                          SizedBox(height: size.height/200,),
+                          Expanded(
+                            flex: 2,
+                            child: Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withAlpha(25),
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              Text(
-                                '01, Ramadan, 1440',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  // color: Color(0xFF2E8E4D),
-                                  fontStyle: FontStyle.italic,
-                                  fontSize: size.height/60,
-                                  // fontSize: 18,
-                                  // fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
+                              child: HijriDate(),
+                            ),
                           ),
                         ],
                       ),
-                    ), height: 4.5,
+                    ), height: 4.5, isHome: true,
                 )
               ),
               Container(
@@ -428,11 +413,17 @@ class _HomePageState extends State<HomePage> {
                       childAspectRatio: size.width > 600 ? 0.9 : 0.80,
                     ),
                     itemCount: ButtonList.logos.length,
-                    itemBuilder: (context, index) {
+                    itemBuilder: (context, index){
                       return ContentButtons(
                         image: ButtonList.logos[index],
                         text: ButtonList.texts[index],
-                        onTap: () => _handleButtonPress(ButtonList.texts[index]),
+                        onTap: ()async{
+                          if(index == 4){
+                            await pickDate(context);
+                          }else{
+                            _handleButtonPress(ButtonList.texts[index]);
+                          }
+                        }
                       );
                     },
                   ),
@@ -480,66 +471,71 @@ class _HomePageState extends State<HomePage> {
                                   ));
                                 }
 
-                                return Column(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(top: size.height / 100),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Reference:',
-                                            style: TextStyle(fontSize: size.height / 80),
-                                          ),
-                                          SizedBox(width: size.width / 50),
-                                          Text(
-                                            '${quranController.surahOfDailAyah.value!.englishName} ${quranController.surahOfDailAyah.value!.number}:${quranController.ayatNumber.value + 1}',
-                                            style: TextStyle(fontSize: size.height / 80),
-                                          ),
-                                          SizedBox(width: size.width / 100),
-                                          Text(
-                                            '(${quranController.surahOfDailAyah.value!.name})',
-                                            style: TextStyle(fontSize: size.height / 80),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Divider(color: Colors.black),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: size.height / 50),
-                                        child: Column(
+                                return InkWell(
+                                  onTap: (){
+                                    Navigator.push(context, CupertinoPageRoute(builder: (context)=>ayatTag()));
+                                  },
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(top: size.height / 100),
+                                        child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             Text(
-                                              quranController.randomAyah.value,
-                                              textAlign: TextAlign.end,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.fade,
-                                              style: TextStyle(
-                                                fontFamily: 'Amiri',
-                                                fontSize: size.height / 30,
-                                                height: size.height / 490,
-                                              ),
+                                              'Reference:',
+                                              style: TextStyle(fontSize: size.height / 80),
                                             ),
+                                            SizedBox(width: size.width / 50),
                                             Text(
-                                              quranController.ayatTranslation.value,
-                                              textAlign: TextAlign.end,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.fade,
-                                              style: TextStyle(
-                                                fontFamily: 'Poppins',
-                                                fontSize: size.height / 50,
-                                                height: size.height / 490,
-                                              ),
+                                              '${quranController.surahOfDailAyah.value!.englishName} ${quranController.surahOfDailAyah.value!.number}:${quranController.ayatNumber.value + 1}',
+                                              style: TextStyle(fontSize: size.height / 80),
+                                            ),
+                                            SizedBox(width: size.width / 100),
+                                            Text(
+                                              '(${quranController.surahOfDailAyah.value!.name})',
+                                              style: TextStyle(fontSize: size.height / 80),
                                             ),
                                           ],
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                      Divider(color: Colors.black),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(horizontal: size.height / 50),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                quranController.randomAyah.value,
+                                                textAlign: TextAlign.end,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.fade,
+                                                style: TextStyle(
+                                                  fontFamily: 'Amiri',
+                                                  fontSize: size.height / 30,
+                                                  height: size.height / 490,
+                                                ),
+                                              ),
+                                              Text(
+                                                quranController.ayatTranslation.value,
+                                                textAlign: TextAlign.end,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.fade,
+                                                style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  fontSize: size.height / 50,
+                                                  height: size.height / 490,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 );
                               }),
                             ),
@@ -633,11 +629,14 @@ class CustomCard extends StatelessWidget {
   final String pic;
   final Widget expand;
   final double height;
-  const CustomCard({super.key, required this.pic, required this.expand, required this.height});
+  bool? isHome;
+  CustomCard({super.key, required this.pic, required this.expand, required this.height, this.isHome});
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    DateTime now = DateTime.now();
+    String monthName = DateFormat('MMMM').format(now);
     return Card(
       elevation: 3,
       child: Container(
@@ -673,10 +672,31 @@ class CustomCard extends StatelessWidget {
                 flex: 5,
                 child: expand),
             // Right Side: SVG Mosque
+            isHome != null?
+            Expanded(
+              flex: 3, // Adjust flex as needed
+              child: Padding(
+                padding: EdgeInsets.only(top:size.width/100, bottom: size.width/100, right: size.width/100, left: size.width/400),
+                child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white.withAlpha(25),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('${now.day}', style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Poppins', fontSize: size.height/12, color: Colors.white),),
+                        Text('${monthName}', style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Poppins', fontSize: size.height/60, color: Colors.white70,),),
+                        Text('${now.year}', style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Poppins', fontSize: size.height/40, color: Colors.white70),),
+                    ],)
+                ),
+              ),
+            ):
             Expanded(
               flex: 4, // Adjust flex as needed
               child: Image.asset('assets/images/${pic}', fit: BoxFit.contain,),
-            ),
+            )
           ],
         ),
       ),

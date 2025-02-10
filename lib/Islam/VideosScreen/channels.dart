@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../Utility/appColors.dart';
 import '../Utility/topPart.dart';
 import '../home.dart';
 import '../screens/QuranRead/SurahJuzController.dart';
@@ -18,6 +19,10 @@ class VideoHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
+        title: Text('IlmTube', style: TextStyle(fontFamily: 'Poppins', color: AppColors.primaryColor, fontWeight: FontWeight.bold),),
+        iconTheme: IconThemeData(
+            color: AppColors.primaryColor
+        ),
       ),
       body: Container(
         child: SafeArea(
@@ -31,7 +36,16 @@ class VideoHomePage extends StatelessWidget {
                   child: CustomCard(pic: 'frontLogo.png',
                     expand: Padding(
                       padding: EdgeInsets.all(size.width/40),
-                      child: Center(),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Islamic Scholars Hub", style: TextStyle(fontFamily: 'Poppins', color: Colors.white, fontSize: size.height/60, fontWeight: FontWeight.bold)),
+                          Text(
+                            "Enlighten your soul with Islamic videos, bayans, and beautiful Qirat—let Allah's words guide you.",
+                            style: TextStyle(fontFamily: 'Poppins', color: Colors.white, fontSize: size.height / 76),
+                          ),
+                        ],
+                      ),
                     ), height: 6,
                   )
               ),

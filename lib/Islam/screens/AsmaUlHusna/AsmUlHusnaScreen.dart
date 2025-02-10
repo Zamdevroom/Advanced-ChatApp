@@ -12,29 +12,19 @@ class AsmaUlHusnaScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/background.png'),
-            fit: BoxFit.cover,
-          ),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text('Asma-ul-Husna', style: TextStyle(fontFamily: 'Poppins', color: AppColors.primaryColor, fontWeight: FontWeight.bold),),
+        iconTheme: IconThemeData(
+            color: AppColors.primaryColor
         ),
+      ),
+      body: Container(
         child: Column(
           children: [
-            TopSection(
-              height: size.height/9,
-              text: "Asma-Ul-Husna",
-              customWidget: Center(),
-            ),
             Expanded(
               child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(size.height / 30),
-                    topRight: Radius.circular(size.height / 30),
-                  ),
-                ),
+                color: Colors.white,
                 child: ListWheelScrollView(
                   diameterRatio: 3,
                   itemExtent: 240,

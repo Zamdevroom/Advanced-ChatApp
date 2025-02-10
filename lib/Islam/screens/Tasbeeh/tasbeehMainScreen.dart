@@ -6,6 +6,7 @@ import 'package:wa_business/Islam/screens/Tasbeeh/tasbeeh.dart';
 
 import '../../Utility/appColors.dart';
 import '../../Utility/topPart.dart';
+import '../../home.dart';
 import 'Dialogs.dart';
 
 class Tasbeehmainscreen extends StatefulWidget {
@@ -110,7 +111,15 @@ class _TasbeehmainscreenState extends State<Tasbeehmainscreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text('Tasbeeh', style: TextStyle(fontFamily: 'Poppins', color: AppColors.primaryColor, fontWeight: FontWeight.bold),),
+        iconTheme: IconThemeData(
+            color: AppColors.primaryColor
+        ),
+      ),
+
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: FloatingActionButton(
         mini:true,
         onPressed: () {
@@ -127,82 +136,68 @@ class _TasbeehmainscreenState extends State<Tasbeehmainscreen> {
           });
         },
         child: Icon(Icons.add),
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: Colors.greenAccent,
       ),
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/background.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
+        color: Colors.white,
         child: Column(
           children: [
-            TopSection(
-              height: size.height/3.5,
-              text: "Tasbeeh",
-              customWidget: Center(),
-            ),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(size.height / 30),
-                    topRight: Radius.circular(size.height / 30),
+            CustomCard(pic: 'frontLogo.png',
+                expand: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Dhikr: The Light of the Heart', style: TextStyle(fontFamily: 'Amiri', fontWeight: FontWeight.bold, color: Colors.white, fontSize: size.height/56),),
+                      Text("Deepen your connection with Allah—let Dhikr bring peace to your heart and endless blessings to your life.", style: TextStyle(fontSize: size.height/84, color: Colors.white, fontFamily: 'Poppins'),),
+                    ],
                   ),
-                ),
-                child: Column(
-                  children: [
-                    SizedBox(height: size.height/150,),
-                    Expanded(
-                      child: CustomScrollView(
-                        physics: BouncingScrollPhysics(),
-                        slivers: [
-                          Obx(()=>
-                              SliverList(
-                                delegate: SliverChildBuilderDelegate(
-                                      (BuildContext context, int index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        print(index);
-                                        MyDialogs.target.clear();
-                                        MyDialogs.TasbeehTarget(context, size.height, size.width,
-                                            engPhrases[index], arabPhrases[index]);
+                ), height: 5.5),
+            Expanded(
+              child: CustomScrollView(
+                physics: BouncingScrollPhysics(),
+                slivers: [
+                  Obx(()=>
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                              (BuildContext context, int index) {
+                            return InkWell(
+                              onTap: () {
+                                print(index);
+                                MyDialogs.target.clear();
+                                MyDialogs.TasbeehTarget(context, size.height, size.width,
+                                    engPhrases[index], arabPhrases[index]);
+                              },
+                              child: StylishCard(
+                                index: index,
+                                arabicText: arabPhrases[index],
+                                engText: engPhrases[index],
+                                trailing: addArabTasbeeh.contains(arabPhrases[index])?IconButton(onPressed: (){
+                                  MyDialogs.arabTxt.text = arabPhrases[index];
+                                  MyDialogs.engTxt.text = engPhrases[index];
+
+                                  MyDialogs.TasbeehEdit(context, size.height, size.width,
+                                          (){
+                                        Navigator.pop(context);
+                                        editTasbeeh(index, MyDialogs.arabTxt.text.toString(), MyDialogs.engTxt.text.toString());
                                       },
-                                      child: StylishCard(
-                                        index: index,
-                                        arabicText: arabPhrases[index],
-                                        engText: engPhrases[index],
-                                        trailing: addArabTasbeeh.contains(arabPhrases[index])?IconButton(onPressed: (){
-                                          MyDialogs.arabTxt.text = arabPhrases[index];
-                                          MyDialogs.engTxt.text = engPhrases[index];
+                                          (){
+                                        Navigator.pop(context);
+                                        deleteTasbeeh(index);
+                                      });
+                                }, icon: Icon(Icons.edit)):SizedBox.shrink(),
 
-                                          MyDialogs.TasbeehEdit(context, size.height, size.width,
-                                                  (){
-                                                    Navigator.pop(context);
-                                                    editTasbeeh(index, MyDialogs.arabTxt.text.toString(), MyDialogs.engTxt.text.toString());
-                                                  },
-                                                  (){
-                                            Navigator.pop(context);
-                                            deleteTasbeeh(index);
-                                          });
-                                        }, icon: Icon(Icons.edit)):SizedBox.shrink(),
-
-                                      ),
-                                    );
-                                  },
-                                  childCount: arabPhrases.length,
-                                ),
                               ),
-                          ),
-                        ],
+                            );
+                          },
+                          childCount: arabPhrases.length,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ),
+            )
           ],
         ),
       ),
@@ -251,7 +246,7 @@ class StylishCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   engText,
-                  style: TextStyle(fontStyle: FontStyle.italic),
+                  style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.bold),
                   textAlign: TextAlign.left,
                 ),
               ),

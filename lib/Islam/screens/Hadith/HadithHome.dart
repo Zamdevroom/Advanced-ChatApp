@@ -32,8 +32,8 @@ class HadithHomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Surah Al-Baqarah, (2:2)', style: TextStyle(fontFamily: 'Amiri', fontWeight: FontWeight.bold, color: Colors.white),),
-                    Text("\"This is the Book about which there is no doubt, a guidance for those conscious of Allah.\"", style: TextStyle(fontSize: size.width/34, color: Colors.white, fontFamily: 'Poppins'),),
+                    Text('Words of the\nProphet ﷺ', style: TextStyle(fontFamily: 'Amiri', fontWeight: FontWeight.bold, color: Colors.white),),
+                    Text("\"Reading Hadith illuminates the heart, enriches the soul, and guides us toward a life of wisdom and righteousness\"", style: TextStyle(fontSize: size.width/34, color: Colors.white, fontFamily: 'Poppins'),),
                   ],
                 ),
               ), height: 5),

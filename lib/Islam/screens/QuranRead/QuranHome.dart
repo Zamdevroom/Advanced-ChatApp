@@ -89,8 +89,8 @@ class _QuranHomeState extends State<QuranHome> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Surah Al-Baqarah, (2:2)', style: TextStyle(fontFamily: 'Amiri', fontWeight: FontWeight.bold, color: Colors.white),),
-                      Text("\"This is the Book about which there is no doubt, a guidance for those conscious of Allah.\"", style: TextStyle(fontSize: size.width/30, color: Colors.white),),
+                      Text('Quran: Light & Guidance', style: TextStyle(fontFamily: 'Amiri', fontWeight: FontWeight.bold, color: Colors.white, fontSize: size.height/66),),
+                      Text("\"Let the Quran be your guide, your light, and your comfort. Every verse brings you closer to Allah and fills your heart with peace\"", style: TextStyle(fontSize: size.height/80, color: Colors.white),),
                     ],
                   ),
                 ), height: 5.5),

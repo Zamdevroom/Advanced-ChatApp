@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'Islam/navBar.dart';
 import 'firebase_options.dart';
 import 'Screens/Screen_2.dart';
 import 'package:get/get.dart';
@@ -31,7 +32,6 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      
       title: "WhatsApp",
       theme: ThemeData(primaryColor: Colors.green,
       ),
