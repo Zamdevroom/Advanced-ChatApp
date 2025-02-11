@@ -24,61 +24,50 @@ class _SurahViewState extends State<SurahView> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/background.png'),
-            fit: BoxFit.cover,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text(
+          'Surah',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Poppins',
+            color: AppColors.primaryColor,
           ),
         ),
-        child: Column(
+        iconTheme: IconThemeData(
+          color: AppColors.primaryColor,
+        ),
+      ),
+      body: Container(
+        color: Colors.white,
+        child: ListView(
           children: [
-            TopSection(
-              height: size.height / 9,
-              text: 'Surah',
-              customWidget: const SizedBox.shrink(),
-            ),
-            Expanded( // Corrected placement of Expanded
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(size.height / 30),
-                    topRight: Radius.circular(size.height / 30),
-                  ),
-                ),
-                child: ListView(
-                  children: [
-                    // Header Section
-                    SurahCard(selectedSurah: widget.selectedSurah,),
-                    if (widget.selectedSurah.ayahs != null &&
-                        widget.selectedSurah.ayahs!.isNotEmpty)
-                      ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: widget.selectedSurah.ayahs!.length,
-                        itemBuilder: (context, index) {
-                          String ayahText =
-                              widget.selectedSurah.ayahs![index].text ?? "";
+            // Header Section
+            SurahCard(selectedSurah: widget.selectedSurah,),
+            if (widget.selectedSurah.ayahs != null &&
+                widget.selectedSurah.ayahs!.isNotEmpty)
+              ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: widget.selectedSurah.ayahs!.length,
+                itemBuilder: (context, index) {
+                  String ayahText =
+                      widget.selectedSurah.ayahs![index].text ?? "";
 
-                          // Handle "Bismillah" removal for non-Surah Al-Fatihah
-                          if (widget.selectedSurah.number != 1 &&
-                              index == 0 &&
-                              ayahText.contains(
-                                  "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ")) {
-                            ayahText = ayahText.replaceFirst(
-                                "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ", "").trim();
-                          }
+                  // Handle "Bismillah" removal for non-Surah Al-Fatihah
+                  if (widget.selectedSurah.number != 1 &&
+                      index == 0 &&
+                      ayahText.contains(
+                          "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ")) {
+                    ayahText = ayahText.replaceFirst(
+                        "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ", "").trim();
+                  }
 
-                          return _buildAyahCard(ayahText, index, size);
-                        },
-                      )
-                    else
-                      const Center(child: Text("No Ayahs available")),
-                  ],
-                ),
-              ),
-            ),
+                  return _buildAyahCard(ayahText, index, size);
+                },
+              )
+            else
+              const Center(child: Text("No Ayahs available")),
           ],
         ),
       ),

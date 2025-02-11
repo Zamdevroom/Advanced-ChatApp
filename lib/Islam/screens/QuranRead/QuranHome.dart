@@ -61,7 +61,7 @@ class _QuranHomeState extends State<QuranHome> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color: Colors.black
+          color: AppColors.primaryColor,
         ),
         title: Text(widget.isQuran?"Quran":"Translation", style: TextStyle(color: AppColors.primaryColor, fontFamily: 'Poppins', fontWeight: FontWeight.bold),),
         backgroundColor: Colors.white,

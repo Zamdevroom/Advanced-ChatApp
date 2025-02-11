@@ -246,8 +246,11 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('ZamStudios', style: TextStyle(fontFamily: 'Poppins', color: AppColors.primaryColor, fontWeight: FontWeight.bold, fontSize: size.height/40),),
+        title: Text('KM Chat Now', style: TextStyle(fontFamily: 'Poppins', color: AppColors.primaryColor, fontWeight: FontWeight.bold, fontSize: size.height/40),),
         backgroundColor: Colors.white,
+        iconTheme: IconThemeData(
+          color: AppColors.primaryColor,
+        ),
       ),
       body: SingleChildScrollView(
         child: Container(

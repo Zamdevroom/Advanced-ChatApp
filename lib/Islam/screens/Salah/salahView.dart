@@ -26,6 +26,9 @@ class _SalahviewState extends State<Salahview> {
 
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: AppColors.primaryColor,
+        ),
         title: Text('Salah Timings', style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w900, color: AppColors.primaryColor)),
       ),
       body: Container(
